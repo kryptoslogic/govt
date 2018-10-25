@@ -39,7 +39,7 @@ func TestGetFileReport(t *testing.T) {
 		t.Fatal(err)
 	}
 	var testMd5 = "eeb024f2c81f0d55936fb825d21a91d6"
-	report, err := govt.GetFileReport(testMd5)
+	report, err := govt.GetFileReport(testMd5, "0")
 
 	if err != nil {
 		t.Error("Error requesting report: ", err.Error())
