@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/williballenthin/govt"
+	"github.com/kryptoslogic/govt"
 )
 
 var apikey string
@@ -40,7 +40,7 @@ func main() {
 	check(err)
 
 	// get a file report
-	r, err := c.GetFileReport(rsrc)
+	r, err := c.GetFileReport(rsrc, "0")
 	check(err)
 	j, err := json.MarshalIndent(r, "", "    ")
 	check(err)

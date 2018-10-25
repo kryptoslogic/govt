@@ -134,6 +134,11 @@ type FileReport struct {
 	Total     uint16              `json:"total"`
 	Scans     map[string]FileScan `json:"scans"`
 	Permalink string              `json:"permalink"`
+
+	// The following fields are only set if allinfo is set to 1 in the request.
+	AdditionalInfo  map[string]interface{} `json:"additional_info"`
+	Ssdeep          string                 `json:"ssdeep"`
+	SubmissionNames []string               `json:"submission_names"`
 }
 
 type DetailedFileReport struct {
@@ -876,9 +881,10 @@ func (client *Client) GetDetailedFileReport(md5 string) (r *DetailedFileReport, 
 }
 
 // GetFileReport fetches the AV scan reports tracked by VT given an MD5 hash value.
-func (client *Client) GetFileReport(md5 string) (r *FileReport, err error) {
+// allInfo should either be 1 or 0.
+func (client *Client) GetFileReport(md5 string, allInfo string) (r *FileReport, err error) {
 	r = &FileReport{}
-	err = client.fetchApiJson("GET", "file/report", Parameters{"resource": md5}, r)
+	err = client.fetchApiJson("GET", "file/report", Parameters{"resource": md5, "allinfo": allInfo}, r)
 	return r, err
 }
 
