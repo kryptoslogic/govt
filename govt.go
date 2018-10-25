@@ -389,6 +389,12 @@ type IpReport struct {
 	Status
 	Resolutions  []IpResolution
 	DetectedUrls []DetectedUrl `json:"detected_urls"`
+
+	ASN                          string         `json:"asn"`
+	Country                      string         `json:"country"`
+	ASOwner                      string         `json:"as_owner"`
+	DetectedCommunicatingSamples []ReportSample `json:"detected_communicating_samples"`
+	UndetectedDownloadedSamples  []ReportSample `json:"undetected_downloaded_samples"`
 }
 
 // DomainResolution is defined by VT.
@@ -397,11 +403,26 @@ type DomainResolution struct {
 	IpAddress    string `json:"ip_address"`
 }
 
+// ReportSample is defined by VT.
+type ReportSample struct {
+	Date      string `json:"date"`
+	SHA256    string `json:"sha256"`
+	Positives int    `json:"positives"`
+	Total     int    `json:"total"`
+}
+
 // DomainReport is defined by VT.
 type DomainReport struct {
 	Status
-	Resolutions  []DomainResolution
-	DetectedUrls []DetectedUrl `json:"detected_urls"`
+	Resolutions []DomainResolution `json:"resolutions"`
+
+	Subdomains                   []string       `json:"subdomains"`
+	DomainSiblings               []string       `json:"domain_siblings"`
+	DetectedUrls                 []DetectedUrl  `json:"detected_urls"`
+	DetectedCommunicatingSamples []ReportSample `json:"detected_communicating_samples"`
+	UndetectedDownloadedSamples  []ReportSample `json:"undetected_downloaded_samples"`
+	DetectedReferrerSamples      []ReportSample `json:"detected_referrer_samples"`
+	UndetectedReferrerSamples    []ReportSample `json:"undetected_referrer_samples"`
 }
 
 // CommentReport is defined by VT.
